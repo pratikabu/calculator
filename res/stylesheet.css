@@ -1,14 +1,17 @@
 .calcButton {
-    width: 60px;
-    height: 50px;
+    /*width: 70px;*/
+    height: 80px;
     margin: 5px;
     font-size: 30px;
-    /*font-weight: bold;*/
 }
 
 .btnfunc {
     background-color: ORANGE;
     border: 1px solid gray;
+}
+.btnAC {
+    background-color: RED;
+    color: WHITE;
 }
 .logLine {
     margin: 10px 0;
@@ -43,6 +46,11 @@
 body {
     text-align: center;
     font-size: 20px;
+}
+
+#buttonsDiv {
+    display: grid;
+    grid-template-columns: auto auto auto auto;
 }
 
 @media screen and (max-width: 720px) {

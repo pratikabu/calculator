@@ -4,9 +4,11 @@ $(document).ready(function () {
 	});
 
 	$(".btnfunc").on("click", function () {
-		if("C" == $(this).val()) {
+		if("AC" == $(this).val()) {
 			$("#expressionDiv").text("");
 			$("#result").val("");
+		} else if("←" == $(this).val()) {
+			// backspace
 		} else {
 			var expression = $("#result").val();
 			$("#expressionDiv").append(" " + expression);
