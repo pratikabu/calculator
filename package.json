@@ -1,7 +1,16 @@
 {
   "name": "calculator",
   "version": "1.0.0",
+  "description": "",
+  "author": {
+    "name": "Pratik Soni",
+    "url": "https://pratikabu.com"
+  },
+  "homepage": "https://pratikabu.com/calculator",
+  "repository": {
+    "url": "https://github.com/pratikabu/calculator"
+  },
   "dependencies": {
-    
+    "mathjs": "^7.0.1"
   }
 }
