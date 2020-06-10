@@ -1,35 +1,69 @@
-var plog = (function () {
-	function log(expression, result) {
-		var line = "<div class='logLine'><span class='expressionLog'>" + expression
-			+ "</span> = " + "<span class='resultLog'>" + result + "</span>" + "</div>";
-		$("#historyDiv").append(line);
+const pformatter = (function () {
+	function format(number) {
+		// formatted string
+		return number;
 	}
 
-	return { log: log }
+	function parse(numberString) {
+		// parse formatted string to number
+		return numberString;
+	}
+
+	return {
+		format: format,
+		parse: parse
+	}
 })();
 
-var pcalc = (function () {
+const plog = (function () {
+	function log(expression, result) {
+		const line = "<div class='logLine'><span class='expressionLog'>" + expression
+			+ "</span> = " + "<span class='resultLog'>" + result + "</span>" + "</div>";
+		$("#historyDiv").prepend(line);
+	}
+
+	return {log: log}
+})();
+
+const peditor = (function () {
+	function isNumeric(num) {
+		// TODO this can be changed to a regex to avoid number limits
+		return !isNaN(num);
+	}
+
+	function appendToEditor(value) {
+		let existingValue = pformatter.parse($("#result").val());
+		existingValue = "" + existingValue + value;// convert to string
+		if (isNumeric(existingValue)) {
+			$("#result").val(pformatter.format(existingValue));
+		}
+	}
+
+	return {append: appendToEditor}
+})();
+
+const pcalc = (function () {
 	function evalExp(expression) {
-		var result = math.evaluate(expression);
+		const result = math.evaluate(expression);
 		$("#result").val(result);
 		plog.log(expression, result);
 	}
 
 	function init() {
 		$(".btnnum").on("click", function () {
-			$("#result").val($("#result").val() + $(this).val());
+			peditor.append($(this).val());
 		});
 
 		$(".btnfunc").on("click", function () {
-			if("AC" == $(this).val()) {
+			if ("AC" == $(this).val()) {
 				$("#expressionDiv").text("");
 				$("#result").val("");
-			} else if("←" == $(this).val()) {
+			} else if ("←" == $(this).val()) {
 				// backspace
 			} else {
-				var expression = $("#result").val();
+				const expression = $("#result").val();
 				$("#expressionDiv").append(" " + expression);
-				if("=" == $(this).val()) {
+				if ("=" == $(this).val()) {
 					evalExp($("#expressionDiv").text());
 				} else {
 					$("#expressionDiv").append(" " + $(this).val());
@@ -45,7 +79,7 @@ var pcalc = (function () {
 		$("#result").focus();
 	}
 
-	return { init: init }
+	return {init: init}
 })();
 
 $(document).ready(function () {
