@@ -26,26 +26,89 @@ const plog = (function () {
 })();
 
 const peditor = (function () {
+
+	function getEditor() {
+		return $("#result");
+	}
+
+	function getExpressionDiv() {
+		return $("#expressionDiv");
+	}
+
 	function isNumeric(num) {
 		// TODO this can be changed to a regex to avoid number limits
 		return !isNaN(num);
 	}
 
 	function appendToEditor(value) {
-		let existingValue = pformatter.parse($("#result").val());
+		let existingValue = pformatter.parse(getEditor().val());
 		existingValue = "" + existingValue + value;// convert to string
 		if (isNumeric(existingValue)) {
-			$("#result").val(pformatter.format(existingValue));
+			getEditor().val(pformatter.format(existingValue));
 		}
 	}
 
-	return {append: appendToEditor}
+	function allClear() {
+		getExpressionDiv().text("");
+		getEditor().val("");
+	}
+
+	function backspace() {
+
+	}
+
+	function isExpressionEmpty() {
+		return "" == getExpressionDiv().text();
+	}
+
+	function isEditorEmpty() {
+		return "" == getEditor().val();
+	}
+
+	function appendToExpression(obj) {
+		if(!isExpressionEmpty()) {
+			getExpressionDiv().append(" ");
+		}
+		getExpressionDiv().append(obj);
+	}
+
+	function moveEditorToExp() {
+		if(isEditorEmpty()) {
+			return false;
+		} else {
+			appendToExpression(getEditor().val());
+			getEditor().val("");
+			return true;
+		}
+	}
+
+	function addOperator(operator) {
+		appendToExpression(operator);
+	}
+
+	function getExpression() {
+		return getExpressionDiv().text();
+	}
+
+	function setResult(resultNum) {
+		getEditor().val(resultNum);
+	}
+
+	return {
+		append: appendToEditor,
+		clear: allClear,
+		backspace: backspace,
+		addOperator: addOperator,
+		getExpression: getExpression,
+		setResult: setResult,
+		moveEditorToExp: moveEditorToExp
+	}
 })();
 
 const pcalc = (function () {
 	function evalExp(expression) {
 		const result = math.evaluate(expression);
-		$("#result").val(result);
+		peditor.setResult(result);
 		plog.log(expression, result);
 	}
 
@@ -56,27 +119,21 @@ const pcalc = (function () {
 
 		$(".btnfunc").on("click", function () {
 			if ("AC" == $(this).val()) {
-				$("#expressionDiv").text("");
-				$("#result").val("");
+				peditor.clear();
 			} else if ("←" == $(this).val()) {
-				// backspace
+				peditor.backspace();
 			} else {
-				const expression = $("#result").val();
-				$("#expressionDiv").append(" " + expression);
-				if ("=" == $(this).val()) {
-					evalExp($("#expressionDiv").text());
-				} else {
-					$("#expressionDiv").append(" " + $(this).val());
-					$("#result").val("");
+				const validMove = peditor.moveEditorToExp();
+				if(validMove) {
+					const operator = $(this).val();
+					if ("=" == operator) {
+						evalExp(peditor.getExpression());
+					} else {
+						peditor.addOperator(operator);
+					}
 				}
 			}
 		});
-
-		$("#btnClear").on("click", function () {
-			$("#result").val("");
-			$("#result").focus();
-		});
-		$("#result").focus();
 	}
 
 	return {init: init}
