@@ -9,9 +9,14 @@ const pformatter = (function () {
 		return numberString;
 	}
 
+	function getDecimalCharacter() {
+		return ".";
+	}
+
 	return {
 		format: format,
-		parse: parse
+		parse: parse,
+		getDecimalCharacter: getDecimalCharacter
 	}
 })();
 
@@ -26,6 +31,7 @@ const plog = (function () {
 })();
 
 const peditor = (function () {
+	const DEFAULT_EDITOR_VALUE = "0";
 
 	function getEditor() {
 		return $("#result");
@@ -41,6 +47,12 @@ const peditor = (function () {
 	}
 
 	function appendToEditor(value) {
+		if(isDefaultValueInEditor()) {
+			if(pformatter.getDecimalCharacter() != value) {
+				getEditor().val("");// remove default value for other numbers
+			}
+		}
+
 		let existingValue = pformatter.parse(getEditor().val());
 		existingValue = "" + existingValue + value;// convert to string
 		if (isNumeric(existingValue)) {
@@ -50,7 +62,7 @@ const peditor = (function () {
 
 	function allClear() {
 		getExpressionDiv().text("");
-		getEditor().val("");
+		getEditor().val(DEFAULT_EDITOR_VALUE);
 	}
 
 	function backspace() {
@@ -61,8 +73,8 @@ const peditor = (function () {
 		return "" == getExpressionDiv().text();
 	}
 
-	function isEditorEmpty() {
-		return "" == getEditor().val();
+	function isDefaultValueInEditor() {
+		return DEFAULT_EDITOR_VALUE == getEditor().val();
 	}
 
 	function appendToExpression(obj) {
@@ -73,11 +85,11 @@ const peditor = (function () {
 	}
 
 	function moveEditorToExp() {
-		if(isEditorEmpty()) {
+		if(isDefaultValueInEditor()) {
 			return false;
 		} else {
 			appendToExpression(getEditor().val());
-			getEditor().val("");
+			getEditor().val(DEFAULT_EDITOR_VALUE);
 			return true;
 		}
 	}

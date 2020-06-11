@@ -53,6 +53,10 @@ body {
     grid-template-columns: auto auto auto auto;
 }
 
+#expressionDiv {
+    height: 30px;
+}
+
 @media screen and (max-width: 720px) {
     .maindiv {
         width: 100%;
