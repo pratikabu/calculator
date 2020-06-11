@@ -125,19 +125,20 @@ const pcalc = (function () {
 	}
 
 	function init() {
-		$(".btnnum").on("click", function () {
-			peditor.append($(this).val());
+		$(".btnnum").on("click", function (e) {
+			peditor.append($(this).text());
+			e.preventDefault();
 		});
 
-		$(".btnfunc").on("click", function () {
-			if ("AC" == $(this).val()) {
+		$(".btnfunc").on("click", function (e) {
+			if ("C" == $(this).text()) {
 				peditor.clear();
-			} else if ("←" == $(this).val()) {
+			} else if ("←" == $(this).text()) {
 				peditor.backspace();
 			} else {
 				const validMove = peditor.moveEditorToExp();
 				if(validMove) {
-					const operator = $(this).val();
+					const operator = $(this).text();
 					if ("=" == operator) {
 						evalExp(peditor.getExpression());
 					} else {
@@ -145,6 +146,8 @@ const pcalc = (function () {
 					}
 				}
 			}
+
+			e.preventDefault();
 		});
 	}
 
