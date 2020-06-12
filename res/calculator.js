@@ -124,29 +124,35 @@ const pcalc = (function () {
 		plog.log(expression, result);
 	}
 
+	function performFuncButtons(operator) {
+		if ("C" == operator) {
+			peditor.clear();
+		} else if ("←" == operator) {
+			peditor.backspace();
+		} else {
+			const validMove = peditor.moveEditorToExp();
+			if (validMove) {
+				if ("=" == operator) {
+					evalExp(peditor.getExpression());
+				} else {
+					peditor.addOperator(operator);
+				}
+			}
+		}
+	}
+
+	function addNumberToEditor(number) {
+		peditor.append(number);
+	}
+
 	function init() {
 		$(".btnnum").on("click", function (e) {
-			peditor.append($(this).text());
+			addNumberToEditor($(this).text());
 			e.preventDefault();
 		});
 
 		$(".btnfunc").on("click", function (e) {
-			if ("C" == $(this).text()) {
-				peditor.clear();
-			} else if ("←" == $(this).text()) {
-				peditor.backspace();
-			} else {
-				const validMove = peditor.moveEditorToExp();
-				if(validMove) {
-					const operator = $(this).text();
-					if ("=" == operator) {
-						evalExp(peditor.getExpression());
-					} else {
-						peditor.addOperator(operator);
-					}
-				}
-			}
-
+			performFuncButtons($(this).text());
 			e.preventDefault();
 		});
 	}
