@@ -48,7 +48,7 @@ const peditor = (function () {
 
 	function appendToEditor(value) {
 		if(isDefaultValueInEditor()) {
-			if(pformatter.getDecimalCharacter() != value) {
+			if(pformatter.getDecimalCharacter() !== value) {
 				getEditor().val("");// remove default value for other numbers
 			}
 		}
@@ -70,11 +70,11 @@ const peditor = (function () {
 	}
 
 	function isExpressionEmpty() {
-		return "" == getExpressionDiv().text();
+		return "" === getExpressionDiv().text();
 	}
 
 	function isDefaultValueInEditor() {
-		return DEFAULT_EDITOR_VALUE == getEditor().val();
+		return DEFAULT_EDITOR_VALUE === getEditor().val();
 	}
 
 	function appendToExpression(obj) {
@@ -125,14 +125,14 @@ const pcalc = (function () {
 	}
 
 	function performFuncButtons(operator) {
-		if ("C" == operator) {
+		if ("C" === operator) {
 			peditor.clear();
-		} else if ("←" == operator) {
+		} else if ("←" === operator) {
 			peditor.backspace();
 		} else {
 			const validMove = peditor.moveEditorToExp();
 			if (validMove) {
-				if ("=" == operator) {
+				if ("=" === operator) {
 					evalExp(peditor.getExpression());
 				} else {
 					peditor.addOperator(operator);
