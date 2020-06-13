@@ -36,7 +36,7 @@ const plog = (function () {
 	}
 
 	function addToLocalStorage(date, expression, result) {
-		executeLocalStorageFunction(function() {
+		if(isLocalStorageAvailable()) {
 			const jsonData = {
 				"expression": expression,
 				"result": result
@@ -44,35 +44,38 @@ const plog = (function () {
 			const dataArray = getDataFromStorage();
 			dataArray.push(jsonData);// insert in begening
 			localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(dataArray));
-		});
+		}
 	}
 
 	function loadOldExpressions() {
-		executeLocalStorageFunction(function() {
+		if(isLocalStorageAvailable()) {
 			const dataArray = getDataFromStorage();
 			for (var i = 0; i < dataArray.length; i++) {
 				addToDiv(dataArray[i]["expression"], dataArray[i]["result"]);
 			}
-		});
+		}
 	}
 
 	function getDataFromStorage() {
-		let dataArray = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
-
-		if(null == dataArray || typeof(dataArray) === 'undefined') {
-			dataArray = [];
+		if(isLocalStorageAvailable()) {
+			let dataArray = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
+			if(null == dataArray || typeof(dataArray) === 'undefined') {
+				dataArray = [];
+			}
+	
+			return dataArray;
 		}
 
-		return dataArray;
+		return null;
 	}
 
-	function executeLocalStorageFunction(execFunc) {
-		if (typeof(Storage) !== "undefined") {
-			execFunc();
-		} else {
-			// Sorry! No Web Storage support..
+	function isLocalStorageAvailable() {
+		let storageAvailable = typeof(Storage) !== "undefined";
+
+		if (!storageAvailable) {
 			console.log("Local storage not available");
 		}
+		return storageAvailable;
 	}
 
 	return {
