@@ -86,6 +86,7 @@ const plog = (function () {
 
 const peditor = (function () {
 	const DEFAULT_EDITOR_VALUE = "0";
+	let isResultCalculated = false;
 
 	function getEditor() {
 		return $("#result");
@@ -114,9 +115,17 @@ const peditor = (function () {
 		}
 	}
 
-	function allClear() {
+	function clearExpression() {
 		getExpressionDiv().text("");
+	}
+
+	function clearEditor() {
 		getEditor().val(DEFAULT_EDITOR_VALUE);
+	}
+
+	function allClear() {
+		clearExpression();
+		clearEditor();
 	}
 
 	function backspace() {
@@ -142,6 +151,10 @@ const peditor = (function () {
 		if(isDefaultValueInEditor()) {
 			return false;
 		} else {
+			if(isResultCalculated) {
+				clearExpression();
+				isResultCalculated = false;
+			}
 			appendToExpression(getEditor().val());
 			getEditor().val(DEFAULT_EDITOR_VALUE);
 			return true;
@@ -157,6 +170,7 @@ const peditor = (function () {
 	}
 
 	function setResult(resultNum) {
+		isResultCalculated = true;
 		getEditor().val(resultNum);
 	}
 
