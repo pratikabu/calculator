@@ -21,13 +21,67 @@ const pformatter = (function () {
 })();
 
 const plog = (function () {
-	function log(expression, result) {
+	const LOCAL_STORAGE_KEY = "pratikabu-calculator-key";
+
+	function addToDiv(expression, result, date) {
 		const line = "<div class='logLine'><span class='expressionLog'>" + expression
 			+ "</span> = " + "<span class='resultLog'>" + result + "</span>" + "</div>";
 		$("#historyDiv").prepend(line);
 	}
 
-	return {log: log}
+	function log(expression, result) {
+		const now = new Date();
+		addToDiv(expression, result, now);
+		addToLocalStorage(now, expression, result);
+	}
+
+	function addToLocalStorage(date, expression, result) {
+		if(isLocalStorageAvailable()) {
+			const jsonData = {
+				"expression": expression,
+				"result": result
+			};
+			const dataArray = getDataFromStorage();
+			dataArray.push(jsonData);// insert in begening
+			localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(dataArray));
+		}
+	}
+
+	function loadOldExpressions() {
+		if(isLocalStorageAvailable()) {
+			const dataArray = getDataFromStorage();
+			for (var i = 0; i < dataArray.length; i++) {
+				addToDiv(dataArray[i]["expression"], dataArray[i]["result"]);
+			}
+		}
+	}
+
+	function getDataFromStorage() {
+		if(isLocalStorageAvailable()) {
+			let dataArray = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
+			if(null == dataArray || typeof(dataArray) === 'undefined') {
+				dataArray = [];
+			}
+	
+			return dataArray;
+		}
+
+		return null;
+	}
+
+	function isLocalStorageAvailable() {
+		let storageAvailable = typeof(Storage) !== "undefined";
+
+		if (!storageAvailable) {
+			console.log("Local storage not available");
+		}
+		return storageAvailable;
+	}
+
+	return {
+		log: log,
+		loadOldExpressions: loadOldExpressions
+	}
 })();
 
 const peditor = (function () {
@@ -162,4 +216,5 @@ const pcalc = (function () {
 
 $(document).ready(function () {
 	pcalc.init();
+	plog.loadOldExpressions();
 });
