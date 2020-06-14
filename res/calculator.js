@@ -23,10 +23,14 @@ const pformatter = (function () {
 const plog = (function () {
 	const LOCAL_STORAGE_KEY = "pratikabu-calculator-key";
 
+	function getHistoryLogDiv() {
+		return $("#historyLog");
+	}
+
 	function addToDiv(expression, result, date) {
 		const line = "<div class='logLine'><span class='expressionLog'>" + expression
 			+ "</span> = " + "<span class='resultLog'>" + result + "</span>" + "</div>";
-		$("#historyDiv").prepend(line);
+		getHistoryLogDiv().prepend(line);
 	}
 
 	function log(expression, result) {
@@ -78,9 +82,17 @@ const plog = (function () {
 		return storageAvailable;
 	}
 
+	function clearLogs() {
+		if(isLocalStorageAvailable()) {
+			localStorage.clear();
+			getHistoryLogDiv().empty();
+		}
+	}
+
 	return {
 		log: log,
-		loadOldExpressions: loadOldExpressions
+		loadOldExpressions: loadOldExpressions,
+		clearLogs: clearLogs
 	}
 })();
 
@@ -221,6 +233,11 @@ const pcalc = (function () {
 
 		$(".btnfunc").on("click", function (e) {
 			performFuncButtons($(this).text());
+			e.preventDefault();
+		});
+
+		$("#clearLogs").on("click", function (e) {
+			plog.clearLogs();
 			e.preventDefault();
 		});
 	}
