@@ -23,12 +23,16 @@ a.btnAC {
     color: WHITE;
 }
 .logLine {
-    margin: 10px 0;
+    padding: 5px;
+    margin: 5px 0;
+}
+.logLine:hover {
+    background-color: #e4e4e4;
 }
 .resultLog {
     font-weight: bold;
 }
-#resultDiv div, #resultDiv textarea {
+#resultDiv div, #resultDiv textarea, #historyLog, .maindiv, .historyHeader {
     text-align: right;
 }
 #resultDiv {
@@ -48,35 +52,75 @@ a.btnAC {
     outline: none;
 }
 .maindiv {
-    width: 700px;
+    width: 100%;
     display: inline-block;
-    text-align: right;
 }
 body {
-    text-align: center;
     font-size: 1.2em;
     font-family: Arial, serif;
+    margin: 0;
+    padding: 10px;
+}
+
+#buttonsContainer {
+    display: grid;
+    grid-template-columns: auto auto auto auto;
 }
 
 #buttonsDiv {
-    display: grid;
-    grid-template-columns: auto auto auto auto;
+    width: 500px;
+    display: inline-block;
 }
 
 #expressionDiv {
     height: 1.2em;
 }
 
-h2 {
-	margin: 10px 0;
+h3 {
+    margin: 10px 0;
 }
 
-@media screen and (max-width: 720px) {
+.historyHeader {
+    border-bottom: 1px SOLID GRAY;
+    margin-bottom: 10px;
+}
+
+.historyHeader h3 {
+    display: inline-block;
+}
+
+#centerContainer {
+    text-align: center;
+}
+
+@media screen and (min-width: 1020px) {
     .maindiv {
         width: 100%;
     }
 
+    #centerContainer {
+        clear: both;
+        text-align: inherit;
+    }
+
+    #buttonsDiv {
+        float: right;
+        margin-left: 20px;
+    }
+
+    #historyDiv {
+        overflow: hidden;
+    }
+}
+
+@media screen and (max-width: 720px) {
     .calcButton {
         font-size: 1em;
+    }
+}
+
+@media screen and (max-width: 510px) {
+    #buttonsDiv {
+        width: 100%;
     }
 }
