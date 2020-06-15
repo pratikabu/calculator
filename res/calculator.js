@@ -115,7 +115,9 @@ const peditor = (function () {
 
 	function appendToEditor(value) {
 		if(isDefaultValueInEditor()) {
-			if(pformatter.getDecimalCharacter() !== value) {
+			if(0 === Number(value)) {
+				return;// don't add zeros if on default
+			} else if(pformatter.getDecimalCharacter() !== value) {
 				getEditor().val("");// remove default value for other numbers
 			}
 		}
