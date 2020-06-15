@@ -104,10 +104,6 @@ h3 {
 }
 
 @media screen and (min-width: 1020px) {
-    .maindiv {
-        width: 100%;
-    }
-
     #centerContainer {
         clear: both;
         text-align: inherit;
@@ -132,5 +128,25 @@ h3 {
 @media screen and (max-width: 510px) {
     #buttonsDiv {
         width: 100%;
+    }
+}
+
+@media screen and (max-height: 550px) {
+    #buttonsDiv {
+        width: 100%;
+        float: none;
+        margin-left: 0px;
+    }
+    .calcButton {
+        font-size: 1em;
+    }
+    #resultDiv {
+        display: inline-block;
+        float: left;
+        width: 45%;
+    }
+    #centerContainer {
+        width: 45%;
+        display: inline-block;
     }
 }
