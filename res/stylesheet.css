@@ -7,6 +7,10 @@
     border: 1px SOLID GRAY;
     border-radius: 10px;
     background-color: #e6e6e6;
+    box-shadow: -3px 5px 0px #ababab;
+}
+.calcButton:active {
+    box-shadow: 1px 0 0 #ababab;
 }
 
 a.calcButton {
