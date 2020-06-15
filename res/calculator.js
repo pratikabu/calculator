@@ -178,7 +178,7 @@ const peditor = (function () {
 				clearExpression();
 				isResultCalculated = false;
 			}
-			appendToExpression(getEditor().val());
+			appendToExpression(getEditorValue());
 			getEditor().val(DEFAULT_EDITOR_VALUE);
 			return true;
 		}
@@ -201,8 +201,25 @@ const peditor = (function () {
 		return getExpressionDiv().text();
 	}
 
+	function getValidExpression() {
+		let lastExpr = getExpression();
+		if(" " === lastExpr.charAt(lastExpr.length - 2)) {
+			return lastExpr.substr(0, lastExpr.length - 2);
+		}
+
+		return lastExpr;
+	}
+
+	function getEditorValue() {
+		return getEditor().val();
+	}
+
 	function setResult(resultNum) {
 		isResultCalculated = true;
+		setEditorValue(resultNum);
+	}
+
+	function setEditorValue(resultNum) {
 		getEditor().val(resultNum);
 	}
 
@@ -211,7 +228,9 @@ const peditor = (function () {
 		clear: allClear,
 		backspace: backspace,
 		addOperator: addOperator,
-		getExpression: getExpression,
+		getValidExpression: getValidExpression,
+		getEditorValue: getEditorValue,
+		setEditorValue: setEditorValue,
 		setResult: setResult,
 		moveEditorToExp: moveEditorToExp,
 		updateOperator: updateOperator
@@ -219,8 +238,12 @@ const peditor = (function () {
 })();
 
 const pcalc = (function () {
+	function evaluate(expression) {
+		return math.evaluate(expression);
+	}
+
 	function evalExp(expression) {
-		const result = math.evaluate(expression);
+		const result = evaluate(expression);
 		peditor.setResult(result);
 		plog.log(expression, result);
 	}
@@ -230,14 +253,16 @@ const pcalc = (function () {
 			peditor.clear();
 		} else if ("←" === operator) {
 			peditor.backspace();
+		} else if("%" === operator) {
+			const lastResult = evaluate(peditor.getValidExpression());
+			const percentExpr = lastResult + " * " + peditor.getEditorValue() + " / 100";
+			peditor.setEditorValue(evaluate(percentExpr));
 		} else {
 			const validMove = peditor.moveEditorToExp();
-			if (validMove) {
-				if ("=" === operator) {
-					evalExp(peditor.getExpression());
-				} else {
-					peditor.addOperator(operator);
-				}
+			if ("=" === operator) {
+				evalExp(peditor.getValidExpression());
+			} else if (validMove) {
+				peditor.addOperator(operator);
 			} else {
 				if ("=" !== operator) {
 					peditor.updateOperator(operator);
