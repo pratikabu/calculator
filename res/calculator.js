@@ -188,6 +188,15 @@ const peditor = (function () {
 		appendToExpression(operator);
 	}
 
+	function updateOperator(operator) {
+		let expression = getExpression();
+		if(2 < expression.length) {
+			expression = expression.substr(0, expression.length - 2);// remove space too
+			getExpressionDiv().text(expression);
+			appendToExpression(operator);
+		}
+	}
+
 	function getExpression() {
 		return getExpressionDiv().text();
 	}
@@ -204,7 +213,8 @@ const peditor = (function () {
 		addOperator: addOperator,
 		getExpression: getExpression,
 		setResult: setResult,
-		moveEditorToExp: moveEditorToExp
+		moveEditorToExp: moveEditorToExp,
+		updateOperator: updateOperator
 	}
 })();
 
@@ -227,6 +237,10 @@ const pcalc = (function () {
 					evalExp(peditor.getExpression());
 				} else {
 					peditor.addOperator(operator);
+				}
+			} else {
+				if ("=" !== operator) {
+					peditor.updateOperator(operator);
 				}
 			}
 		}
