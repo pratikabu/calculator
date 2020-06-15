@@ -132,6 +132,12 @@ h3 {
 }
 
 @media screen and (max-height: 550px) {
+    .calcButton {
+        font-size: .75em;
+    }
+}
+
+@media screen and (max-height: 450px) {
     #buttonsDiv {
         width: 100%;
         float: none;
