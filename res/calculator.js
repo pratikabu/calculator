@@ -141,7 +141,16 @@ const peditor = (function () {
 	}
 
 	function backspace() {
-
+		let editorValue = getEditor().val();
+		if("0" !== editorValue) {
+			let size = editorValue.length - 1;
+			if(0 == size) {
+				clearEditor();
+			} else {
+				let newValue = editorValue.substr(0, size);
+				getEditor().val(newValue);
+			}
+		}
 	}
 
 	function isExpressionEmpty() {
