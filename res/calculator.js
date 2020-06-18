@@ -290,6 +290,29 @@ const pcalc = (function () {
 			plog.clearLogs();
 			e.preventDefault();
 		});
+
+		$(document).keypress(function(e) {
+			const keyCode = e.which || e.keyCode;
+			let key = String.fromCharCode(keyCode);
+			if(46 == keyCode ||
+				48 <= keyCode && 57 >= keyCode) {
+				addNumberToEditor(key);
+			} else if([43, 45, 42, 47, 37].includes(keyCode)) {
+				performFuncButtons(key);
+			}
+		});
+
+		$(document).keydown(function(e) {
+			const keyCode = e.which || e.keyCode;
+			let key = String.fromCharCode(keyCode);
+			if(13 == keyCode) {
+				performFuncButtons("=");
+			} else if(27 == keyCode) {
+				performFuncButtons("C");
+			} else if(8 == keyCode) {
+				performFuncButtons("←");
+			}
+		});
 	}
 
 	return {init: init}
