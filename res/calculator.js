@@ -203,7 +203,7 @@ const peditor = (function () {
 
 	function getValidExpression() {
 		let lastExpr = getExpression();
-		if(" " === lastExpr.charAt(lastExpr.length - 2)) {
+		if(['+', '-', '*', '/'].includes(lastExpr.charAt(lastExpr.length - 1))) {
 			return lastExpr.substr(0, lastExpr.length - 2);
 		}
 
@@ -233,7 +233,8 @@ const peditor = (function () {
 		setEditorValue: setEditorValue,
 		setResult: setResult,
 		moveEditorToExp: moveEditorToExp,
-		updateOperator: updateOperator
+		updateOperator: updateOperator,
+		isNumeric: isNumeric
 	}
 })();
 
