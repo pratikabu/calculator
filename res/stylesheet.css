@@ -123,6 +123,10 @@ h3 {
     .calcButton {
         font-size: 1em;
     }
+    .historyHeader a {
+        display: block;
+        margin-bottom: 10px;
+    }
 }
 
 @media screen and (max-width: 510px) {
@@ -154,5 +158,9 @@ h3 {
     #centerContainer {
         width: 45%;
         display: inline-block;
+    }
+    .historyHeader a {
+        display: block;
+        margin-bottom: 10px;
     }
 }
