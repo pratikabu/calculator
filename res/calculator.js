@@ -47,6 +47,9 @@ const plog = (function () {
 			};
 			const dataArray = getDataFromStorage();
 			dataArray.push(jsonData);// insert in begening
+			if(10 < dataArray.length) {
+				dataArray.shift();
+			}
 			localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(dataArray));
 		}
 	}
