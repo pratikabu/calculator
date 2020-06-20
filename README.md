@@ -5,7 +5,7 @@ It is an open source calculator based on HTML5/Javascript/CSS/jQuery. It uses [m
 
 Report an issue [here](https://github.com/pratikabu/calculator/issues).
 
-Access the cacluator on [pratikabu.com/calculator](https://pratikabu.com/calculator).
+Access the cacluator on [calculator.pratikabu.com](https://calculator.pratikabu.com).
 
 ## Mission
 To provide an ad free, simple calculator, that actually works.
