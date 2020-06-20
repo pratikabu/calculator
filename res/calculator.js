@@ -117,6 +117,10 @@ const peditor = (function () {
 	}
 
 	function appendToEditor(value) {
+		if(checkAndClearResultCalculated()) {
+			allClear();
+		}
+
 		if(isDefaultValueInEditor()) {
 			if(0 === Number(value)) {
 				return;// don't add zeros if on default
@@ -146,6 +150,10 @@ const peditor = (function () {
 	}
 
 	function backspace() {
+		if(checkAndClearResultCalculated()) {
+			allClear();
+		}
+
 		let editorValue = getEditor().val();
 		if("0" !== editorValue) {
 			let size = editorValue.length - 1;
@@ -177,14 +185,21 @@ const peditor = (function () {
 		if(isDefaultValueInEditor()) {
 			return false;
 		} else {
-			if(isResultCalculated) {
+			if(checkAndClearResultCalculated()) {
 				clearExpression();
-				isResultCalculated = false;
 			}
 			appendToExpression(getEditorValue());
 			getEditor().val(DEFAULT_EDITOR_VALUE);
 			return true;
 		}
+	}
+
+	function checkAndClearResultCalculated() {
+		if(isResultCalculated) {
+			isResultCalculated = false;
+			return true;
+		}
+		return false;
 	}
 
 	function addOperator(operator) {
