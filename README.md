@@ -7,13 +7,17 @@ Report an issue [here](https://github.com/pratikabu/calculator/issues).
 
 Access the cacluator on [pratikabu.com/calculator](https://pratikabu.com/calculator).
 
+## Mission
+To provide an ad free, simple calculator, that actually works.
+
 ## Unique Features
 - History Persistence
 - Responsive UI
 
 ## Future Path
-- Tagging history expressions
 - Expert Expression Mode
+- Theming
+- Tagging history expressions
 - Browser Extension
 - Number format localization
 
@@ -21,5 +25,10 @@ Access the cacluator on [pratikabu.com/calculator](https://pratikabu.com/calcula
 - [mathjs.org](https://mathjs.org/) library
 - [jQuery](https://jquery.com/)
 - JetBrains [WebStorm](https://www.jetbrains.com/webstorm/)
+
+## Support
+- Spread the word by sharing [this](https://calculator.pratikabu.com) website.
+- Support development by [Donating](https://scrolltotop.pratikabu.com/donate).
+- Support in the development.
 
 Read more about the [author](https://pratikabu.com).
