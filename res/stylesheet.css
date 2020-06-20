@@ -36,11 +36,20 @@ a.btnAC {
     color: WHITE;
 }
 .logLine {
-    padding: 5px;
-    margin: 5px 0;
+    margin: 10px 0;
 }
-.logLine:hover {
+.logLine .expressionLog, .logLine .resultLog {
+    padding: 5px;
+    border: 1px SOLID GRAY;
+    border-radius: 5px;
+    cursor: pointer;
+    display: inline-block;
+}
+.logLine .expressionLog:hover {
     background-color: #e4e4e4;
+}
+.logLine .resultLog:hover {
+    background-color: #bfff8f;
 }
 .resultLog {
     font-weight: bold;
