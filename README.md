@@ -15,8 +15,9 @@ To provide an ad free, simple calculator, that actually works.
 - Responsive UI
 
 ## Future Path
-- Tagging history expressions
 - Expert Expression Mode
+- Theming
+- Tagging history expressions
 - Browser Extension
 - Number format localization
 
