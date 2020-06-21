@@ -28,8 +28,8 @@ const plog = (function () {
 	}
 
 	function addToDiv(expression, result, date) {
-		const line = "<div class='logLine'><span class='expressionLog'>" + expression
-			+ "</span> = " + "<span class='resultLog'>" + result + "</span>" + "</div>";
+		const line = "<div class='logLine'><span class='expressionLog' tabindex='0'>" + expression
+			+ "</span> = " + "<span class='resultLog' tabindex='0'>" + result + "</span>" + "</div>";
 		getHistoryLogDiv().prepend(line);
 	}
 

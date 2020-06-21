@@ -16,14 +16,11 @@ a:hover {
     border-radius: 10px;
     background-color: #e6e6e6;
     box-shadow: -3px 5px 0px #ababab;
+    cursor: pointer;
+    outline: none;
 }
 .calcButton:active {
     box-shadow: 1px 0 0 #ababab;
-}
-
-a.calcButton {
-    text-decoration: none;
-    color: black;
 }
 
 .btnfunc {
@@ -31,8 +28,6 @@ a.calcButton {
 }
 .btnAC {
     background-color: #ff4646;
-}
-a.btnAC {
     color: WHITE;
 }
 .logLine {
@@ -45,11 +40,15 @@ a.btnAC {
     cursor: pointer;
     display: inline-block;
 }
-.logLine .expressionLog:hover {
-    background-color: #e4e4e4;
+.logLine .expressionLog:hover, .logLine .resultLog:hover {
+    background-color: #f1f1f1;
 }
-.logLine .resultLog:hover {
-    background-color: #bfff8f;
+.logLine .expressionLog:active, .logLine .resultLog:active {
+    background-color: #d5e4ff;
+}
+.logLine .expressionLog:focus, .logLine .resultLog:focus {
+    border-color: #a0bcf8;
+    outline: none;
 }
 .resultLog {
     font-weight: bold;
