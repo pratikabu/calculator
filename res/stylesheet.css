@@ -12,24 +12,47 @@ a:hover {
     margin: 5px;
     font-size: 1.5em;
     text-align: center;
-    border: 1px SOLID GRAY;
+    border: 1px SOLID #cacaca;
     border-radius: 10px;
-    background-color: #e6e6e6;
-    box-shadow: -3px 5px 0px #ababab;
+    background-color: #efefef;
+    /*box-shadow: -3px 5px 0px #ababab;*/
     cursor: pointer;
     outline: none;
 }
+.btnnum:hover {
+    background-color: #e4e4e4;
+}
 .calcButton:active {
-    box-shadow: 1px 0 0 #ababab;
+    /*box-shadow: 1px 0 0 #ababab;*/
+}
+.calcButton:focus {
+    border-color: GRAY;
 }
 
 .btnfunc {
-    background-color: #ffd993;
+    background-color: #d4d4d4;
+}
+.btnfunc:hover {
+    background-color: #cccccc;
 }
 .btnAC {
     background-color: #ff4646;
     color: WHITE;
 }
+.btnAC:hover {
+     background-color: #ff2121;
+ }
+
+.noselect {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+}
+
 .logLine {
     margin: 10px 0;
 }

@@ -294,14 +294,20 @@ const pcalc = (function () {
 		peditor.append(number);
 	}
 
+	function postCalcButtonClick(element) {
+		element.blur();
+	}
+
 	function init() {
 		$(".btnnum").on("click", function (e) {
 			addNumberToEditor($(this).text());
+			postCalcButtonClick($(this));
 			e.preventDefault();
 		});
 
 		$(".btnfunc").on("click", function (e) {
 			performFuncButtons($(this).text());
+			postCalcButtonClick($(this));
 			e.preventDefault();
 		});
 
