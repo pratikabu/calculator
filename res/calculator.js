@@ -33,10 +33,25 @@ const plog = (function () {
 		getHistoryLogDiv().prepend(line);
 	}
 
-	function log(expression, result) {
+	function isLastLogNotDuplicate(data) {
+		let isDuplicate = false;
+		const lastLogLine = $("#historyLog .logLine").first();
+		if(1 === lastLogLine.length) {
+			const logExp = lastLogLine.find(".expressionLog").text();
+			// const logRes = lastLogLine.find(".resultLog").text();
+			if(logExp === data.expression) {
+				isDuplicate = true;
+			}
+		}
+		return !isDuplicate;
+	}
+
+	function log(data) {
 		const now = new Date();
-		addToDiv(expression, result, now);
-		addToLocalStorage(now, expression, result);
+		if(isLastLogNotDuplicate(data)) {
+			addToDiv(data.expression, data.result, now);
+			addToLocalStorage(now, data.expression, data.result);
+		}
 	}
 
 	function addToLocalStorage(date, expression, result) {
@@ -112,7 +127,7 @@ const plog = (function () {
 
 		// capture calculated event and add log line
 		window.addEventListener('expressionCalculatedEvent', function (e) {
-			log(e.detail.expression, e.detail.result);
+			log(e.detail);
 		});
 	}
 
