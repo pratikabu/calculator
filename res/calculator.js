@@ -92,10 +92,28 @@ const plog = (function () {
 		}
 	}
 
+	function init() {
+		loadOldExpressions();
+
+		$("#clearLogs").click(function (e) {
+			clearLogs();
+			e.preventDefault();
+		});
+
+		$("#historyLog").on("click", ".logLine span", function (e) {
+			const data = {
+				"value": $(this).text(),
+				"isResult": $(this).hasClass("resultLog"),
+				"isExpression": $(this).hasClass("expressionLog")
+			}
+			window.dispatchEvent(new CustomEvent("logLineElementClickEvent", {"detail": data}));
+			$(this).blur();
+		});
+	}
+
 	return {
-		log: log,
-		loadOldExpressions: loadOldExpressions,
-		clearLogs: clearLogs
+		init: init,
+		log: log
 	}
 })();
 
@@ -145,6 +163,7 @@ const peditor = (function () {
 	}
 
 	function allClear() {
+		checkAndClearResultCalculated();
 		clearExpression();
 		clearEditor();
 	}
@@ -241,7 +260,19 @@ const peditor = (function () {
 		getEditor().val(resultNum);
 	}
 
+	function init() {
+		// Listen to logLineElementClickEvent
+		window.addEventListener('logLineElementClickEvent', function (e) {
+			const data = e.detail;
+			if(checkAndClearResultCalculated() || data.isExpression) {
+				allClear();
+			}
+			setEditorValue(data.value);
+		});
+	}
+
 	return {
+		init: init,
 		append: appendToEditor,
 		clear: allClear,
 		backspace: backspace,
@@ -251,8 +282,7 @@ const peditor = (function () {
 		setEditorValue: setEditorValue,
 		setResult: setResult,
 		moveEditorToExp: moveEditorToExp,
-		updateOperator: updateOperator,
-		isNumeric: isNumeric
+		updateOperator: updateOperator
 	}
 })();
 
@@ -311,11 +341,6 @@ const pcalc = (function () {
 			e.preventDefault();
 		});
 
-		$("#clearLogs").on("click", function (e) {
-			plog.clearLogs();
-			e.preventDefault();
-		});
-
 		$(document).keypress(function(e) {
 			const keyCode = e.which || e.keyCode;
 			let key = String.fromCharCode(keyCode);
@@ -344,6 +369,7 @@ const pcalc = (function () {
 })();
 
 $(document).ready(function () {
+	plog.init();
+	peditor.init();
 	pcalc.init();
-	plog.loadOldExpressions();
 });
