@@ -109,11 +109,15 @@ const plog = (function () {
 			window.dispatchEvent(new CustomEvent("logLineElementClickEvent", {"detail": data}));
 			$(this).blur();
 		});
+
+		// capture calculated event and add log line
+		window.addEventListener('expressionCalculatedEvent', function (e) {
+			log(e.detail.expression, e.detail.result);
+		});
 	}
 
 	return {
-		init: init,
-		log: log
+		init: init
 	}
 })();
 
@@ -269,6 +273,11 @@ const peditor = (function () {
 			}
 			setEditorValue(data.value);
 		});
+
+		// capture calculated event and set result
+		window.addEventListener('expressionCalculatedEvent', function (e) {
+			setResult(e.detail.result);
+		});
 	}
 
 	return {
@@ -280,7 +289,6 @@ const peditor = (function () {
 		getValidExpression: getValidExpression,
 		getEditorValue: getEditorValue,
 		setEditorValue: setEditorValue,
-		setResult: setResult,
 		moveEditorToExp: moveEditorToExp,
 		updateOperator: updateOperator
 	}
@@ -292,9 +300,11 @@ const pcalc = (function () {
 	}
 
 	function evalExp(expression) {
-		const result = evaluate(expression);
-		peditor.setResult(result);
-		plog.log(expression, result);
+		const data = {
+			"expression": expression,
+			"result": evaluate(expression)
+		}
+		window.dispatchEvent(new CustomEvent("expressionCalculatedEvent", {"detail": data}));
 	}
 
 	function performFuncButtons(operator) {
