@@ -25,6 +25,7 @@ To provide an ad free, simple calculator, that actually works.
 - [mathjs.org](https://mathjs.org/) library
 - [jQuery](https://jquery.com/)
 - JetBrains [WebStorm](https://www.jetbrains.com/webstorm/)
+- App icon: [Iconfinder](https://www.iconfinder.com/icons/1055102/calculation_calculator_math_mathematics_icon)
 
 ## Support
 - Spread the word by sharing [this](https://calculator.pratikabu.com) website.

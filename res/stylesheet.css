@@ -152,6 +152,10 @@ h3 {
     margin-bottom: 15px;
 }
 
+.appicon {
+    height: 48px;
+}
+
 @media screen and (min-width: 1020px) {
     #centerContainer {
         clear: both;
