@@ -131,8 +131,13 @@ h3 {
     margin-bottom: 10px;
 }
 
-.historyHeader h3 {
+.historyHeader > * {
     display: inline-block;
+    vertical-align: middle;
+}
+
+.historyHeader > a > img {
+    height: 30px;
 }
 
 #centerContainer {
@@ -167,12 +172,8 @@ h3 {
     .calcButton {
         font-size: 1em;
     }
-    .historyHeader h3 {
-        display: block;
-    }
-    .historyHeader a {
-        display: inline-block;
-        margin-bottom: 10px;
+    .historyHeader {
+        margin-top: 20px;
     }
 }
 
@@ -206,11 +207,7 @@ h3 {
         width: 45%;
         display: inline-block;
     }
-    .historyHeader h3 {
-        display: block;
-    }
-    .historyHeader a {
-        display: inline-block;
-        margin-bottom: 10px;
+    .historyHeader {
+        margin-top: 20px;
     }
 }
