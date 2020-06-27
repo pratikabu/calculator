@@ -136,8 +136,9 @@ h3 {
     vertical-align: middle;
 }
 
-.historyHeader > a > img {
+.historyHeader > span > img {
     height: 30px;
+    cursor: pointer;
 }
 
 #centerContainer {
