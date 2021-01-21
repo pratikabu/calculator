@@ -7,7 +7,7 @@ Report an issue [here](https://github.com/pratikabu/calculator/issues).
 
 Access the calculator on [calculator.pratikabu.com](https://calculator.pratikabu.com).
 
-<img src="res/app-screenshot.png" width="200px" >
+<img src="res/app-screenshot.png" width="400px" >
 
 ## Mission
 To provide an ad free, simple calculator, that actually works.
